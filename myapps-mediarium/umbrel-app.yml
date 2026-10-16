@@ -1,0 +1,23 @@
+
+manifestVersion: 1
+id: myapps-mediarium
+name: Mediarium
+tagline: Organise and manage your media
+icon: https://mediarium.app/favicon.ico
+category: Media
+version: "1.0.0"
+port: 8264
+description: >-
+  Manage and organise your movies and TV shows with Mediarium.
+developer: Mediarium
+website: https://github.com/rdborg/Mediarium
+submitter: Gitakohub
+submission: https://github.com/Gitakohub/umbrel-app-store
+repo: https://github.com/rdborg/Mediarium
+support: https://github.com/rdborg/Mediarium/issues
+gallery: []
+releaseNotes: Initial release
+dependencies: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""
