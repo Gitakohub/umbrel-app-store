@@ -1,9 +1,9 @@
-
 services:
   app_proxy:
     environment:
       APP_HOST: myapps-mediarium_server_1
       APP_PORT: 8264
+
   server:
     image: ghcr.io/rdborg/mediarium:latest
     restart: unless-stopped
@@ -15,16 +15,18 @@ services:
       PGID: "1000"
       TZ: Europe/Amsterdam
       DOWNLOADS_DIR: /data/downloads
-      MOVIES_DIR: /data/movies
-      TV_DIR: /data/shows
-      MUSIC_DIR: /data/music
+      MOVIES_DIR: /media/movies
+      TV_DIR: "/media/Tv Shows"
+      MUSIC_DIR: /media/Music
     volumes:
       - ${APP_DATA_DIR}/config:/config
-      - /home/umbrel/umbrel/external/Drive/Downloads/Mediarium:/data
+      - /home/umbrel/umbrel/external/Drive/Downloads/Jellyfin:/data
+      - /home/umbrel/umbrel/external/Drive/Media/movies:/media/movies
+      - /home/umbrel/umbrel/external/Drive/Media/Tv Shows:/media/Tv Shows
+      - /home/umbrel/umbrel/external/Drive/Media/Music:/media/Music
+
   flaresolverr:
     image: ghcr.io/flaresolverr/flaresolverr:latest
     restart: unless-stopped
-    profiles:
-      - cloudflare
     environment:
-      - TZ=Europe/Amsterdam
+      TZ: Europe/Amsterdam
