@@ -3,7 +3,7 @@ manifestVersion: 1
 id: myapps-mediarium
 name: Mediarium
 tagline: Organise and manage your media
-icon: https://github.com/Gitakohub/umbrel-app-store/blob/master/myapps-mediarium/mediarium-icon-512.png
+icon: https://github.com/Gitakohub/umbrel-app-store/blob/master/myapps-mediarium/mediarium-icon-512.ico
 category: Media
 version: "1.0.0"
 port: 8264
