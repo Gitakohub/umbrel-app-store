@@ -1,3 +1,4 @@
+
 services:
   silo:
     image: ghcr.io/silo-server/silo-server:latest
@@ -11,8 +12,18 @@ services:
       MEDIA_ROOT: /media
     volumes:
       - ${APP_DATA_DIR}/silo:/data
-      - "/home/umbrel/umbrel/external/Drive/Media/Movies:/media/Movies:ro"
-      - "/home/umbrel/umbrel/external/Drive/Media/Tv Shows:/media/Tv Shows:ro"
+      - type: bind
+        source: /home/umbrel/umbrel/external/Drive/Media/Movies
+        target: /media/Movies
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: /home/umbrel/umbrel/external/Drive/Media/Tv Shows
+        target: /media/Tv Shows
+        read_only: true
+        bind:
+          create_host_path: false
     depends_on:
       postgres:
         condition: service_healthy
