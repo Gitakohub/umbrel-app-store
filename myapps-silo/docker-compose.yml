@@ -3,6 +3,9 @@ services:
   silo:
     image: ghcr.io/silo-server/silo-server:latest
     restart: unless-stopped
+    group_add:
+      - "991"
+      - "44"
     ports:
       - "8090:8080"
     environment:
