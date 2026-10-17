@@ -1,7 +1,7 @@
 services:
   silo:
     image: ghcr.io/silo-server/silo-server:latest
-    restart: "no"
+    restart: unless-stopped
     ports:
       - "8090:8090"
     environment:
@@ -21,7 +21,7 @@ services:
 
   postgres:
     image: pgvector/pgvector:pg18
-    restart: "no"
+    restart: unless-stopped
     environment:
       POSTGRES_DB: silo
       POSTGRES_USER: silo
@@ -36,6 +36,6 @@ services:
 
   redis:
     image: redis:7-alpine
-    restart: "no"
+    restart: unless-stopped
     volumes:
       - ${APP_DATA_DIR}/redis:/data
