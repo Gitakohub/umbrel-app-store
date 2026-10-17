@@ -6,6 +6,8 @@ services:
     group_add:
       - "991"
       - "44"
+    devices:
+      - /dev/dri:/dev/dri
     ports:
       - "8090:8080"
     environment:
@@ -15,7 +17,6 @@ services:
       MEDIA_ROOT: /media
     volumes:
       - ${APP_DATA_DIR}/silo:/data
-      - /dev/dri:/dev/dri
       - type: bind
         source: /home/umbrel/umbrel/external/Drive/Media/Movies
         target: /media/Movies
