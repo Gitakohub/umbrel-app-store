@@ -1,0 +1,41 @@
+services:
+  silo:
+    image: ghcr.io/silo-server/silo-server:latest
+    restart: unless-stopped
+    ports:
+      - "8090:8090"
+    environment:
+      DATABASE_URL: postgres://silo:${POSTGRES_PASSWORD}@postgres:5432/silo?sslmode=disable
+      REDIS_URL: redis://redis:6379
+      SECRET_KEY: ${SECRET_KEY}
+      MEDIA_ROOT: /media
+    volumes:
+      - ${APP_DATA_DIR}/silo:/data
+      - /home/umbrel/umbrel/external/Drive/Media/Movies:/media/Movies:ro
+      - /home/umbrel/umbrel/external/Drive/Media/Tv Shows:/media/Tv Shows:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  postgres:
+    image: pgvector/pgvector:pg18
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: silo
+      POSTGRES_USER: silo
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - ${APP_DATA_DIR}/postgres:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U silo -d silo"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    volumes:
+      - ${APP_DATA_DIR}/redis:/data
