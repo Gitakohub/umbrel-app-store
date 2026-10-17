@@ -22,3 +22,5 @@ dependencies: []
 path: ""
 defaultUsername: ""
 defaultPassword: ""
+permissions:
+  - GPU
