@@ -12,6 +12,7 @@ services:
       MEDIA_ROOT: /media
     volumes:
       - ${APP_DATA_DIR}/silo:/data
+      - /dev/dri:/dev/dri
       - type: bind
         source: /home/umbrel/umbrel/external/Drive/Media/Movies
         target: /media/Movies
