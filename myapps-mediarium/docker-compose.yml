@@ -20,10 +20,26 @@ services:
       MUSIC_DIR: /media/Music
     volumes:
       - ${APP_DATA_DIR}/config:/config
-      - /home/umbrel/umbrel/external/Drive/Downloads/Mediarium:/data
-      - /home/umbrel/umbrel/external/Drive/Media/Movies:/media/Movies
-      - "/home/umbrel/umbrel/external/Drive/Media/Tv Shows:/media/Tv Shows"
-      - /home/umbrel/umbrel/external/Drive/Media/Music:/media/Music
+      - type: bind
+        source: /home/umbrel/umbrel/external/Drive/Downloads/Mediarium
+        target: /data
+        bind:
+          create_host_path: false
+      - type: bind
+        source: /home/umbrel/umbrel/external/Drive/Media/Movies
+        target: /media/Movies
+        bind:
+          create_host_path: false
+      - type: bind
+        source: /home/umbrel/umbrel/external/Drive/Media/Tv Shows
+        target: /media/Tv Shows
+        bind:
+          create_host_path: false
+      - type: bind
+        source: /home/umbrel/umbrel/external/Drive/Media/Music
+        target: /media/Music
+        bind:
+          create_host_path: false
 
   flaresolverr:
     image: ghcr.io/flaresolverr/flaresolverr:latest
