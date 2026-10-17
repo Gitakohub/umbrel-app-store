@@ -1,14 +1,24 @@
 manifestVersion: 1
 id: myapps-silo
 name: Silo
-tagline: Personal media server
-icon: https://raw.githubusercontent.com/Silo-Server/silo-server/main/assets/logo.png
-category: files
+tagline: Your personal media server
+icon: https://raw.githubusercontent.com/Silo-Server/silo-server/main/web/public/favicon.ico
+category: Media
 version: "1.0.0"
 port: 8090
-description: Private media server for movies and TV shows.
+description: >-
+  A self-hosted media server for organizing films and series,
+  managing your library, and providing compatible playback APIs.
 developer: Silo Server
-website: https://github.com/Silo-Server/silo-server
-submitter: Local
-submission: https://github.com/Silo-Server/silo-server
-releaseNotes: Initial personal installation.
+website: https://siloserver.org/
+submitter: Custom
+submission: ""
+repo: https://github.com/Silo-Server/silo-server
+support: https://github.com/Silo-Server/silo-server/issues
+gallery: []
+releaseNotes: >-
+  Initial custom UmbrelOS app.
+dependencies: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""
