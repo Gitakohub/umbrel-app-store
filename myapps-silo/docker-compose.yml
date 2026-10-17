@@ -1,0 +1,69 @@
+
+services:
+  app_proxy:
+    environment:
+      APP_HOST: myapps-silo_silo_1
+      APP_PORT: 8080
+
+  postgres:
+    image: pgvector/pgvector:pg18
+    restart: unless-stopped
+    shm_size: 2gb
+    environment:
+      POSTGRES_USER: silo
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD}
+      POSTGRES_DB: silo
+    volumes:
+      - ${APP_DATA_DIR}/postgres:/var/lib/postgresql
+    command: ["postgres", "-c", "listen_addresses=*"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U silo -d silo"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  redis:
+    image: redis:alpine
+    restart: unless-stopped
+    volumes:
+      - ${APP_DATA_DIR}/redis:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  silo:
+    image: ghcr.io/silo-server/silo-server:latest
+    restart: unless-stopped
+    stop_grace_period: 2m
+    environment:
+      MODE: integrated
+      PORT: "8080"
+      JF_PORT: "8096"
+      SECRET_KEY: ${SECRET_KEY:?Set SECRET_KEY}
+      DATABASE_URL: postgres://silo:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD}@postgres:5432/silo?sslmode=disable
+      REDIS_URL: redis://redis:6379
+      SILO_PLUGIN_CACHE_DIR: /var/lib/silo/plugins
+      POSTGRES_TUNE: auto
+    ports:
+      - "8090:8080"
+      - "8096:8096"
+      - "13378:13378"
+    volumes:
+      - /home/umbrel/umbrel/external/Drive/Media/Movies:/mnt/media/Movies:ro
+      - /home/umbrel/umbrel/external/Drive/Media/TV Shows:/mnt/media/TV Shows:ro
+      - ${APP_DATA_DIR}/plugins:/var/lib/silo/plugins
+      - ${APP_DATA_DIR}/artwork:/var/lib/silo/artwork
+      - ${APP_DATA_DIR}/compat:/var/lib/silo/compat
+      - ${APP_DATA_DIR}/transcode:/tmp/silo-transcode
+      - ${APP_DATA_DIR}/download-artifacts:/tmp/silo-download-artifacts
+      - ${APP_DATA_DIR}/catalog-seeds:/catalog-seeds:ro
+      - /proc/meminfo:/host/proc/meminfo:ro
+      - /proc/stat:/host/proc/stat:ro
+      - /proc/loadavg:/host/proc/loadavg:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
