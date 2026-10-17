@@ -22,7 +22,7 @@ services:
       - ${APP_DATA_DIR}/config:/config
       - /home/umbrel/umbrel/external/Drive/Downloads/Mediarium:/data
       - /home/umbrel/umbrel/external/Drive/Media/Movies:/media/Movies
-      - /home/umbrel/umbrel/external/Drive/Media/Tv Shows:/media/Tv Shows
+      - "/home/umbrel/umbrel/external/Drive/Media/Tv Shows:/media/Tv Shows"
       - /home/umbrel/umbrel/external/Drive/Media/Music:/media/Music
 
   flaresolverr:
