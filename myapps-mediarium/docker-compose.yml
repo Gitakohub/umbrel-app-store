@@ -20,7 +20,7 @@ services:
       MUSIC_DIR: /media/Music
     volumes:
       - ${APP_DATA_DIR}/config:/config
-      - /home/umbrel/umbrel/external/Drive/Media/Downloads:/data
+      - /home/umbrel/umbrel/external/Drive/Downloads/Mediarium:/data
       - /home/umbrel/umbrel/external/Drive/Media/Movies:/media/movies
       - /home/umbrel/umbrel/external/Drive/Media/Tv Shows:/media/Tv Shows
       - /home/umbrel/umbrel/external/Drive/Media/Music:/media/Music
