@@ -5,7 +5,7 @@ services:
     ports:
       - "8090:8090"
     environment:
-      DATABASE_URL: "postgres://silo:${APP_PASSWORD}@postgres:5432/silo?sslmode=disable"
+      DATABASE_URL: "postgres://silo:moneyprintergobrrr@postgres:5432/silo?sslmode=disable"
       REDIS_URL: "redis://redis:6379"
       SECRET_KEY: "${APP_SEED}"
       MEDIA_ROOT: /media
@@ -25,7 +25,7 @@ services:
     environment:
       POSTGRES_DB: silo
       POSTGRES_USER: silo
-      POSTGRES_PASSWORD: "${APP_PASSWORD}"
+      POSTGRES_PASSWORD: moneyprintergobrrr
     volumes:
       - ${APP_DATA_DIR}/postgres:/var/lib/postgresql
     healthcheck:
